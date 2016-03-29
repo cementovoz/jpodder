@@ -29,9 +29,7 @@ public class Launcher extends Application {
                     ExceptionDialog dialog = new ExceptionDialog((Exception) it);
                     dialog.setResizable(true);
                     dialog.show();
-                    dialog.setOnHidden(e -> {
-                        Platform.exit();
-                    });
+                    dialog.setOnHidden(e -> Platform.exit());
                 });
     }
 
