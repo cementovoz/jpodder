@@ -2,7 +2,6 @@ package com.github.cementovoz.jpodder.db.models;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Series {
-    @DatabaseField(id = true, allowGeneratedIdInsert = true)
+    @DatabaseField(generatedId = true)
     private Long id;
     @DatabaseField(foreign = true)
     private Podcast podcast;

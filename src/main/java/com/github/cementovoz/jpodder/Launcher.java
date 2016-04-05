@@ -2,6 +2,7 @@ package com.github.cementovoz.jpodder;
 
 
 import com.github.cementovoz.jpodder.events.Initialize;
+import com.github.cementovoz.jpodder.events.Initialized;
 import com.github.cementovoz.jpodder.events.Start;
 import com.github.cementovoz.jpodder.events.Stop;
 import com.github.cementovoz.jpodder.rx.FXScheduler;
@@ -12,6 +13,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.controlsfx.dialog.ExceptionDialog;
+import rx.functions.Action1;
 
 public class Launcher extends Application {
 
@@ -22,15 +24,19 @@ public class Launcher extends Application {
     public void init() throws Exception {
         injector = Guice.createInjector(new JPodderModule());
         eventBus = injector.getInstance(EventBus.class);
-        eventBus.post(new Initialize());
         eventBus.observable(Exception.class)
                 .observeOn(FXScheduler.instance())
-                .subscribe(it -> {
-                    ExceptionDialog dialog = new ExceptionDialog((Exception) it);
-                    dialog.setResizable(true);
-                    dialog.show();
-                    dialog.setOnHidden(e -> Platform.exit());
-                });
+                .subscribe(this::showError);
+
+        eventBus.observable().onErrorReturn(it -> null);
+        eventBus.post(new Initialize());
+    }
+
+    private void showError(Throwable e) {
+        ExceptionDialog dialog = new ExceptionDialog(e);
+        dialog.setResizable(true);
+        dialog.show();
+        dialog.setOnHidden(it -> Platform.exit());
     }
 
     @Override
@@ -42,7 +48,9 @@ public class Launcher extends Application {
     public void start(Stage stage) throws Exception {
         MainWindow mainWindow = injector.getInstance(MainWindow.class);
         mainWindow.show(stage);
-        eventBus.post(new Start());
+        eventBus.observable(Initialized.class).subscribe(it -> {
+            eventBus.post(new Start());
+        });
     }
 
     public static void main(String[] args) {

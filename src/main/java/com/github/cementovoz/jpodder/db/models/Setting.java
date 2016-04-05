@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Setting {
-    @DatabaseField(id = true, allowGeneratedIdInsert = true)
+    @DatabaseField(generatedId = true)
     private Long id;
     @DatabaseField
     private String name;

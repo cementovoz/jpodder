@@ -23,9 +23,12 @@ public class MainWindow {
     public void show (Stage stage) {
         BorderPane pane = new BorderPane();
         Scene scene = new Scene(pane);
+        pane.setTop(menuPanel.createGui());
         pane.setCenter(contentPanel.createGui());
         pane.setLeft(leftPanel.createGui());
+        stage.setMaximized(true);
         stage.setScene(scene);
+        stage.setTitle("JPodder - Listen");
         stage.show();
     }
 }
