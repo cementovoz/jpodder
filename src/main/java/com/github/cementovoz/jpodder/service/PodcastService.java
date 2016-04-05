@@ -12,7 +12,6 @@ import rx.schedulers.Schedulers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
 
 public class PodcastService {
 
