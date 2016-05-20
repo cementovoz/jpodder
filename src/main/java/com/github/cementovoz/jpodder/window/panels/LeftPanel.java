@@ -3,9 +3,10 @@ package com.github.cementovoz.jpodder.window.panels;
 
 import com.github.cementovoz.jpodder.EventBus;
 import com.github.cementovoz.jpodder.db.Connector;
+import com.github.cementovoz.jpodder.db.DomainFactory;
 import com.github.cementovoz.jpodder.db.models.Podcast;
-import com.github.cementovoz.jpodder.events.ReloadPodcasts;
-import com.github.cementovoz.jpodder.events.Start;
+import com.github.cementovoz.jpodder.events.ReloadPodcastsEvent;
+import com.github.cementovoz.jpodder.events.StartEvent;
 import com.google.inject.Inject;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
@@ -20,7 +21,7 @@ public class LeftPanel implements Panel {
     private EventBus eventBus;
 
     @Inject
-    private Connector connector;
+    private DomainFactory factory;
 
     private ListView<String> listView;
 
@@ -32,17 +33,17 @@ public class LeftPanel implements Panel {
     @Override
     public Node createGui() {
         listView = new ListView<>();
-        eventBus.observable(Start.class)
+        eventBus.observable(StartEvent.class)
                 .observeOn(Schedulers.io())
                 .subscribe(it -> {
-                    List<Podcast> all = connector.podcastDao().getAll();
-                    eventBus.post(new ReloadPodcasts(all
+                    List<Podcast> all = factory.podcasts().getAll();
+                    eventBus.post(new ReloadPodcastsEvent(all
                             .stream()
                             .map(Podcast::getName)
                             .collect(Collectors.toList())
                     ));
                 });
-        eventBus.observable(ReloadPodcasts.class).subscribe(it -> {
+        eventBus.observable(ReloadPodcastsEvent.class).subscribe(it -> {
             listView.getItems().clear();
             listView.getItems().addAll(it.getItems());
         });

@@ -5,7 +5,9 @@ import com.github.cementovoz.jpodder.window.panels.LeftPanel;
 import com.github.cementovoz.jpodder.window.panels.MenuPanel;
 import com.github.cementovoz.jpodder.window.panels.StatusPanel;
 import com.google.inject.Inject;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -24,8 +26,11 @@ public class MainWindow {
         BorderPane pane = new BorderPane();
         Scene scene = new Scene(pane);
         pane.setTop(menuPanel.createGui());
-        pane.setCenter(contentPanel.createGui());
-        pane.setLeft(leftPanel.createGui());
+        SplitPane splitPane = new SplitPane();
+        Node left = leftPanel.createGui();
+        splitPane.getItems().addAll(left, contentPanel.createGui());
+        splitPane.setDividerPositions(0.25);
+        pane.setCenter(splitPane);
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.setTitle("JPodder - Listen");

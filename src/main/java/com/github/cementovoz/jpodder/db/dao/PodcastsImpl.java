@@ -7,9 +7,9 @@ import com.j256.ormlite.support.ConnectionSource;
 import java.sql.SQLException;
 import java.util.List;
 
-public class PodcastDaoImpl extends BaseDaoImpl<Podcast, Long> implements PodcastDao {
+public class PodcastsImpl extends BaseDaoImpl<Podcast, Long> implements Podcasts {
 
-    public PodcastDaoImpl(ConnectionSource connectionSource) throws SQLException {
+    public PodcastsImpl(ConnectionSource connectionSource) throws SQLException {
         super(connectionSource, Podcast.class);
     }
 

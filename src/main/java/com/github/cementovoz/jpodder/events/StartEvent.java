@@ -1,4 +1,4 @@
 package com.github.cementovoz.jpodder.events;
 
-public class Start {
+public class StartEvent implements Event {
 }

@@ -1,7 +1,7 @@
 package com.github.cementovoz.jpodder.window.panels;
 
 import com.github.cementovoz.jpodder.EventBus;
-import com.github.cementovoz.jpodder.events.AddNewPodcast;
+import com.github.cementovoz.jpodder.events.AddNewPodcastEvent;
 import com.github.cementovoz.jpodder.rx.FXEvents;
 import com.google.inject.Inject;
 import javafx.scene.Node;
@@ -19,7 +19,7 @@ public class MenuPanel implements Panel {
         MenuBar menuBar = new MenuBar();
         Menu podcasts = new Menu("Podcasts");
         MenuItem add = new MenuItem("Add");
-        FXEvents.events(add).subscribe(it -> eventBus.post(new AddNewPodcast.ShowDialod()));
+        FXEvents.events(add).subscribe(it -> eventBus.post(new AddNewPodcastEvent.ShowDialod()));
         podcasts.getItems().add(add);
         menuBar.getMenus().add(podcasts);
         return menuBar;

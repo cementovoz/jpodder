@@ -1,7 +1,7 @@
 package com.github.cementovoz.jpodder.service;
 
 import com.github.cementovoz.jpodder.EventBus;
-import com.github.cementovoz.jpodder.events.AddNewPodcast;
+import com.github.cementovoz.jpodder.events.AddNewPodcastEvent;
 import com.google.inject.Inject;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
@@ -20,7 +20,7 @@ public class PodcastService {
     @Inject
     public PodcastService(EventBus eventBus) {
         this.eventBus = eventBus;
-        eventBus.observable(AddNewPodcast.class)
+        eventBus.observable(AddNewPodcastEvent.class)
                 .subscribeOn(Schedulers.io())
                 .subscribe(it -> {
                     loadRss(it.getUrl());

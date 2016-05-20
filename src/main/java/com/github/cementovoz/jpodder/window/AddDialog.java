@@ -1,7 +1,7 @@
 package com.github.cementovoz.jpodder.window;
 
 import com.github.cementovoz.jpodder.EventBus;
-import com.github.cementovoz.jpodder.events.AddNewPodcast;
+import com.github.cementovoz.jpodder.events.AddNewPodcastEvent;
 import com.google.inject.Inject;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
@@ -11,7 +11,7 @@ public class AddDialog {
 
     @Inject
     public AddDialog(EventBus eventBus) {
-        eventBus.observable(AddNewPodcast.ShowDialod.class).subscribe(it -> {
+        eventBus.observable(AddNewPodcastEvent.ShowDialod.class).subscribe(it -> {
             TextInputDialog alert = new TextInputDialog();
             alert.setTitle("Add podcast url");
             alert.setGraphic(null);
@@ -28,7 +28,7 @@ public class AddDialog {
             alert.showAndWait();
             String url = alert.getResult();
             if (url != null && !url.isEmpty()) {
-                eventBus.post(new AddNewPodcast(url));
+                eventBus.post(new AddNewPodcastEvent(url));
             }
         });
     }

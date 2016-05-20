@@ -7,10 +7,10 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ReloadPodcasts {
+public class ReloadPodcastsEvent implements Event {
     private List<String> items;
 
-    public ReloadPodcasts(List<String> items) {
+    public ReloadPodcastsEvent(List<String> items) {
         this.items = items;
     }
 }

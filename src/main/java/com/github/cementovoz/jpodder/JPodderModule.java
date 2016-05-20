@@ -1,6 +1,7 @@
 package com.github.cementovoz.jpodder;
 
 import com.github.cementovoz.jpodder.db.Connector;
+import com.github.cementovoz.jpodder.db.DomainFactory;
 import com.github.cementovoz.jpodder.service.PodcastService;
 import com.github.cementovoz.jpodder.window.AddDialog;
 import com.github.cementovoz.jpodder.window.MainWindow;
@@ -23,6 +24,7 @@ public class JPodderModule extends AbstractModule {
         bind(StatusPanel.class);
         bind(AddDialog.class).asEagerSingleton();
         bind(Connector.class).asEagerSingleton();
+        bind(DomainFactory.class).asEagerSingleton();
         bind(PodcastService.class).asEagerSingleton();
     }
 }

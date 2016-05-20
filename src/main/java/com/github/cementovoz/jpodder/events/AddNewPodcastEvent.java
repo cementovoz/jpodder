@@ -2,11 +2,11 @@ package com.github.cementovoz.jpodder.events;
 
 import lombok.Getter;
 
-public class AddNewPodcast {
+public class AddNewPodcastEvent {
     @Getter
     private String url;
 
-    public AddNewPodcast(String url) {
+    public AddNewPodcastEvent(String url) {
         this.url = url;
     }
 

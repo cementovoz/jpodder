@@ -5,6 +5,6 @@ import com.j256.ormlite.dao.Dao;
 
 import java.util.List;
 
-public interface PodcastDao extends Dao<Podcast, Long> {
+public interface Podcasts extends Dao<Podcast, Long> {
     List<Podcast> getAll();
 }
